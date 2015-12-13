@@ -1,12 +1,10 @@
 'use strict';
 
 angular.module('thethurmansApp')
-  .controller('MainCtrl', function ($scope, $http) {
+  .controller('MainCtrl', function ($scope, $http, MongoService) {
     $scope.Documents = [];
 
-    $http.get('/api/things').success(function(documents) {
-      $scope.Documents = documents;
-    });
+    $scope.Documents = MongoService.http.get();
 
     $scope.addThing = function() {
       if($scope.newThing === '') {
