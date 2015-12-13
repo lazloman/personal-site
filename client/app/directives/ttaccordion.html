@@ -1,0 +1,5 @@
+<uib-accordion close-others="true">
+  <uib-accordion-group panel-class="panel-info" heading={{document.title}} is-open="false" is-disabled="false"  ng-repeat="document in records">
+    <div class="row" ng-repeat="document in document.records">{{document.name}}</div>
+  </uib-accordion-group>
+</uib-accordion>

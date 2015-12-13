@@ -1,11 +1,7 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 <div class="row">
   <div class="col-xs-3 col-sm-2">
-    <uib-accordion close-others="true">
-      <uib-accordion-group panel-class="panel-info" heading={{document.title}} is-open="false" is-disabled="false"  ng-repeat="document in Documents">
-        <div class="row" ng-repeat="document in document.records">{{document.name}}</div>
-      </uib-accordion-group>
-    </uib-accordion>
+    <ttaccordion records="Documents"></ttaccordion>
   </div>
 </div>
 <footer class="footer">
