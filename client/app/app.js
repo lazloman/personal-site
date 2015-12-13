@@ -6,7 +6,8 @@ angular.module('thethurmansApp', [
   'ngSanitize',
   'ngRoute',
   'ui.bootstrap',
-  'cgPrompt'
+  'cgPrompt',
+  'ngDragDrop'
 ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
