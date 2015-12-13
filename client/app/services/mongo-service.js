@@ -6,7 +6,8 @@ angular.module('thethurmansApp')
     return {
 
       http: $resource('/api/things', {
-      }, {
+          name: '@name'
+        }, {
         update: {
           method: 'PUT'
         },
@@ -15,6 +16,9 @@ angular.module('thethurmansApp')
           method: 'GET'
         },
         post: {
+          params: {
+            name: '@name'
+          },
           method: 'POST'
         }
       })
