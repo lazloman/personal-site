@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('thethurmansApp')
-  .directive('addGroupButton', function(prompt, MongoService) {
+  .directive('addGroupButton', function(prompt, MongoService, NewGroupService) {
 
     return{
 
@@ -18,13 +18,10 @@ angular.module('thethurmansApp')
             'title': 'Add New Group',
             'input': true,
             'label': 'New Group Title'
-          }).then(function (result) {
-            if (result) {
-              var newGroupTitle = {
-                "title" : result,
-                "records" : []
-              };
-              MongoService.http.post(newGroupTitle).$promise.then(function(data){
+          }).then(function (title) {
+            if (title) {
+              var newGroup = NewGroupService.NewGroup(title);
+              MongoService.http.post(newGroup).$promise.then(function(data){
                     $scope.documents.push(data);
               });
             }

@@ -6,7 +6,7 @@ angular.module('thethurmansApp')
     return {
 
       http: $resource('/api/things', {
-          name: '@name'
+          newGroup: '@newGroup'
         }, {
         update: {
           method: 'PUT'
@@ -17,7 +17,7 @@ angular.module('thethurmansApp')
         },
         post: {
           params: {
-            name: '@name'
+            name: '@newGroup'
           },
           method: 'POST'
         }
