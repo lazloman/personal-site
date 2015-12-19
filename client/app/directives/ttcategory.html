@@ -1,5 +1,6 @@
+<div class="panel panel-info">
 <div
-  class="panel panel-info"
+  class="panel-heading"
   ng-click="isCollapsed=!isCollapsed"
   ngf-drop
   ng-model="droppedFiles"
@@ -8,5 +9,8 @@
   ngf-allow-dir="true"
   accept="image/*,application/pdf"
   ngf-pattern="'image/*,application/pdf'">{{record.title}}</div>
-<div uib-collapse="isCollapsed" ng-repeat="document in record.records">{{document.name}}</div>
+</div>
+<div class="panel panel-default" uib-collapse="isCollapsed" ng-repeat="document in record.records">
+  <div class="panel-heading" >{{document.name}}</div>
+</div>
 

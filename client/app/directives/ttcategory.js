@@ -13,9 +13,11 @@ angular.module('thethurmansApp')
       controller: function($scope){
 
         $scope.isCollapsed = true;
-        $scope.$watch('droppedFiles', function(){
+        $scope.$watch('droppedFiles', function(files){
 
-          console.log('Got files');
+          if(typeof files !== 'undefined') {
+            console.log(files[0].name);
+          }
         });
       }
     };
