@@ -9,7 +9,7 @@
   ngf-allow-dir="false"
   accept="image/*,application/pdf"
   ngf-pattern="'image/*,application/pdf'">{{record.title}}
-  <span class="hover-content glyphicon glyphicon-remove pull-right" ng-click="removeCategory(record)"></span>
+  <span class="hover-content glyphicon glyphicon-remove pull-right" ng-click="removeCategory(record); $event.stopPropagation()"></span>
 </div>
 </div>
 <div ng-if="record.records.length > 0">

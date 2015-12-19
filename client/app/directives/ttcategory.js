@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('thethurmansApp')
-  .directive('ttcategory', function(MongoService) {
+  .directive('ttcategory', function(MongoService, $modal) {
 
     return {
       scope: {
@@ -17,13 +17,25 @@ angular.module('thethurmansApp')
 
         $scope.removeCategory = function(record){
 
+          $scope.modalInstance = $modal.open({
+            templateUrl: 'app/directives/confirm-category-removal.html',
+            scope: $scope
+          });
+        };
+
+        $scope.ok = function(){
+
           MongoService.http.delete({'id': record._id}).$promise.then(function () {
 
             var index = $scope.allRecords.indexOf(record);
-              $scope.allRecords.splice(index, 1);
-            });
-        };
+            $scope.allRecords.splice(index, 1);
+          });
+        }
 
+        $scope.cancel = function () {
+
+          $scope.modalInstance.dismiss('cancel');
+        };
         $scope.$watch('droppedFiles', function(files){
 
           if(typeof files !== 'undefined') {
