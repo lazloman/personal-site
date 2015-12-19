@@ -6,7 +6,9 @@ angular.module('thethurmansApp')
     return {
 
       http: $resource('/api/things', {
-          newGroup: '@newGroup'
+          newGroup: '@newGroup',
+          document: '@document',
+          id: '@id'
         }, {
         update: {
           method: 'PUT'
@@ -20,9 +22,19 @@ angular.module('thethurmansApp')
             name: '@newGroup'
           },
           method: 'POST'
+        },
+        delete:{
+          method: 'DELETE',
+          url: '/api/things/:id',
+          isArray: true
+        },
+        addDocument: {
+          params: {
+            document: '@document'
+          },
+          method: 'POST'
         }
       })
-
     };
   });
 

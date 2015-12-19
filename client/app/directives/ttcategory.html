@@ -1,4 +1,4 @@
-<div class="panel panel-info">
+<div class="panel panel-info hover-me">
 <div
   class="panel-heading"
   ng-click="isCollapsed=!isCollapsed"
@@ -6,11 +6,17 @@
   ng-model="droppedFiles"
   ngf-drag-over-class="{pattern: 'image/*,application/pdf', accept:'drop-accept', reject: 'drop-reject'}"
   ngf-multiple="true"
-  ngf-allow-dir="true"
+  ngf-allow-dir="false"
   accept="image/*,application/pdf"
-  ngf-pattern="'image/*,application/pdf'">{{record.title}}</div>
+  ngf-pattern="'image/*,application/pdf'">{{record.title}}
+  <span class="hover-content glyphicon glyphicon-remove pull-right" ng-click="removeCategory(record)"></span>
 </div>
-<div class="panel panel-default" uib-collapse="isCollapsed" ng-repeat="document in record.records">
-  <div class="panel-heading" >{{document.name}}</div>
 </div>
-
+<div ng-if="record.records.length > 0">
+  <div class="panel panel-default" uib-collapse="isCollapsed" ng-repeat="document in record.records">
+    <div class="panel-heading" >{{document.name}}</div>
+  </div>
+</div>
+<div ng-if="record.records.length === 0">
+    <div class="panel-heading" uib-collapse="isCollapsed">No {{record.title}} documents found</div>
+</div>

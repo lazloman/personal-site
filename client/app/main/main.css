@@ -46,3 +46,16 @@
 .drop-reject {
   border: 5px dashed red;
 }
+
+.hover-content {
+  opacity:0;
+  -webkit-transition:.5s;
+  -moz-transition:.5s;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  transition:.5s;
+}
+
+.hover-me:hover .hover-content {
+  opacity:1;
+}
