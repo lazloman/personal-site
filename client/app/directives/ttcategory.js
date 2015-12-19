@@ -15,7 +15,7 @@ angular.module('thethurmansApp')
 
         $scope.isCollapsed = true;
 
-        $scope.removeCategory = function(record){
+        $scope.removeCategory = function(){
 
           $scope.modalInstance = $modal.open({
             templateUrl: 'app/directives/confirm-category-removal.html',
@@ -25,9 +25,9 @@ angular.module('thethurmansApp')
 
         $scope.ok = function(){
 
-          MongoService.http.delete({'id': record._id}).$promise.then(function () {
+          MongoService.http.delete({'id': $scope.record._id}).$promise.then(function () {
 
-            var index = $scope.allRecords.indexOf(record);
+            var index = $scope.allRecords.indexOf($scope.record);
             $scope.allRecords.splice(index, 1);
           });
         }
