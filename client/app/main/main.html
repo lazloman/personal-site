@@ -2,8 +2,8 @@
 <add-group-button documents="Documents"></add-group-button>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-xs-3 col-sm-2">
-      <ttaccordion records="Documents"></ttaccordion>
+    <div class="col-xs-3 col-sm-2" ng-repeat="record in Documents">
+      <ttcategory record=record></ttcategory>
     </div>
   </div>
 </div>

@@ -1,0 +1,14 @@
+
+<div class="panel panel-info"  ng-click="isCollapsed=!isCollapsed">{{record.title}}</div>
+  <div
+      uib-collapse="isCollapsed"
+      ngf-drop
+      ng-model="droppedFiles"
+      ngf-drag-over-class="{pattern: 'image/*,application/pdf', accept:'drop-accept', reject: 'drop-reject'}"
+      ngf-multiple="true"
+      ngf-allow-dir="true"
+      accept="image/*,application/pdf"
+      ngf-pattern="'image/*,application/pdf'"
+      ng-repeat="document in record.records">{{document.name}}
+  </div>
+
