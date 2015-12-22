@@ -14,7 +14,7 @@
 </div>
 <div ng-if="record.records.length > 0">
   <div class="panel panel-default" uib-collapse="isCollapsed" ng-repeat="document in record.records">
-    <div class="panel-heading" >{{document.name}}</div>
+    <div class="panel-heading">{{document.name | removeFileExtension}}</div>
   </div>
 </div>
 <div ng-if="record.records.length === 0">
