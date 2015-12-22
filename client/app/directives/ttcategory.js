@@ -43,9 +43,7 @@ angular.module('thethurmansApp')
           if(typeof files !== 'undefined') {
 
             $scope.record.records.push({'name': files[0].name, 'id': 'sddsfdsfsdf'});
-            MongoService.http.update({'id': $scope.record._id, 'records': $scope.record.records}).$promise.then(function(data){
-
-            });
+            MongoService.http.update({'id': $scope.record._id, 'records': $scope.record.records});
           }
         });
       }
