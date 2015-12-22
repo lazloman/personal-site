@@ -7,7 +7,8 @@ angular.module('thethurmansApp', [
   'ngRoute',
   'ui.bootstrap',
   'cgPrompt',
-  'ngFileUpload'
+  'ngFileUpload',
+  'bgDirectives'
 ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider

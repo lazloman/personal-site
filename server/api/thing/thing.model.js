@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
 
 var DocumentsSchema = new Schema({
   title: String,
-  records: Schema.Types.Mixed
+  records: Array
 });
 
 module.exports = mongoose.model('Documents', DocumentsSchema);

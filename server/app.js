@@ -14,6 +14,10 @@ var config = require('./config/environment');
 // Connect to database
 mongoose.connect(config.mongo.uri, config.mongo.options);
 
+var Grid = require('gridfs-stream');
+Grid.mongo = mongoose.mongo;
+var gfs = new Grid(mongoose.connection.db);
+
 // Populate DB with sample data
 if(config.seedDB) { require('./config/seed'); }
 
