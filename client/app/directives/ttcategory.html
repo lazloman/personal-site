@@ -1,22 +1,24 @@
-<div class="panel panel-info hover-me">
-<div
-  class="panel-heading"
-  ng-click="isCollapsed=!isCollapsed"
-  ngf-drop
-  ng-model="droppedFiles"
-  ngf-drag-over-class="{pattern: 'image/*,application/pdf', accept:'drop-accept', reject: 'drop-reject'}"
-  ngf-multiple="true"
-  ngf-allow-dir="false"
-  accept="image/*,application/pdf"
-  ngf-pattern="'image/*,application/pdf'">{{record.title}}
-  <span class="hover-content glyphicon glyphicon-remove pull-right" ng-click="removeCategory(record); $event.stopPropagation()"></span>
-</div>
-</div>
+<form enctype="multipart/form-data">
+  <div class="panel panel-info hover-me">
+    <div
+      class="panel-heading"
+      ng-click="isCollapsed=!isCollapsed"
+      ngf-drop
+      ng-model="droppedFiles"
+      ngf-drag-over-class="{pattern: 'image/*,application/pdf', accept:'drop-accept', reject: 'drop-reject'}"
+      ngf-multiple="true"
+      ngf-allow-dir="false"
+      accept="image/*,application/pdf"
+      ngf-pattern="'image/*,application/pdf'">{{record.title}}
+      <span class="hover-content glyphicon glyphicon-remove pull-right" ng-click="removeCategory(record); $event.stopPropagation()"></span>
+    </div>
+  </div>
+</form>
 <div ng-if="record.records.length > 0">
   <div class="panel panel-default" uib-collapse="isCollapsed" ng-repeat="document in record.records">
     <div class="panel-heading">{{document.name | removeFileExtension}}</div>
   </div>
 </div>
 <div ng-if="record.records.length === 0">
-    <div class="panel-heading" uib-collapse="isCollapsed">No {{record.title}} documents found</div>
+    <div class="panel-heading" uib-collapse="isCollapsed">No <strong>'{{record.title}}'</strong> documents found</div>
 </div>

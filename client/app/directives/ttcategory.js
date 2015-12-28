@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('thethurmansApp')
-  .directive('ttcategory', function(MongoService, $modal) {
+  .directive('ttcategory', function(MongoService, Upload, $modal, $timeout, GridFSService) {
 
     return {
       scope: {
@@ -19,7 +19,7 @@ angular.module('thethurmansApp')
         $scope.removeCategory = function(){
 
           $scope.modalInstance = $modal.open({
-            templateUrl: 'app/directives/confirm-category-removal.html',
+            templateUrl: '/api/files',
             scope: $scope
           });
         };
@@ -40,12 +40,38 @@ angular.module('thethurmansApp')
 
         $scope.$watch('droppedFiles', function(files){
 
-          if(typeof files !== 'undefined') {
+          if(typeof files !== 'undefined' && files[0].size > 0) {
 
-            $scope.record.records.push({'name': files[0].name, 'id': 'sddsfdsfsdf'});
-            MongoService.http.update({'id': $scope.record._id, 'records': $scope.record.records});
+            //$scope.record.records.push({'name': files[0].name, 'id': 'sddsfdsfsdf'});
+            //MongoService.http.update({'id': $scope.record._id, 'records': $scope.record.records});
+
+            $scope.uploadFile(files[0]);
+
           }
         });
+
+        $scope.uploadFile = function(file){
+
+          var uploadFile = {
+            'title': file.name,
+            'data': file
+          }
+
+          Upload.upload({
+            url: './uploads',
+            data: {file: uploadFile}
+          }).progress(function (evt) {
+            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            $scope.log = 'progress: ' + progressPercentage + '% ' +
+              evt.config.data.title + '\n' + $scope.log;
+          }).success(function (data, status, headers, config) {
+            $timeout(function(evt) {
+              $scope.log = 'file: ' + evt.config.data.title + ', Response: ' + JSON.stringify(data) + '\n' + $scope.log;
+            });
+          }).error(function(err){
+            console.log(err);
+          });
+        };
       }
     };
   });
