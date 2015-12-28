@@ -9,7 +9,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var multer  = require('multer');
 var bodyParser = require('body-parser');
-var upload = multer({ 'dest': './api/uploads/', 'Content-Type': 'undefined'});
+var upload = multer({ 'dest': './uploads/', 'Content-Type': 'application/json'});
 
 var express = require('express');
 var mongoose = require('mongoose');
@@ -39,10 +39,32 @@ app.use(bodyParser.json());
 //  console.log('Here');
 //});
 
-app.post('/uploads', upload.single('droppedFiles'), function(req, res){
-  console.log(req.body) // form fields
-  console.log(req.file) // form files
-  res.status(204).end()
+app.post('/uploads', upload.single('data'), function(req, res){
+
+
+  //console.log(req.body); // form fields
+  console.log(req.file);
+
+  var part = req.file.fieldname;
+
+  var writeStream = gfs.createWriteStream({
+    filename: part.originalname,
+    mode: 'w',
+    content_type:part.mimetype
+  });
+
+  writeStream.on('close', function() {
+    return res.status(200).send({
+      message: 'Success'
+    });
+  });
+
+  writeStream.write(part.data);
+
+  writeStream.end();
+
+   // form files
+  //res.status(204).end()
 });
 
 //app.use(bodyParser.json()); // support json encoded bodies
