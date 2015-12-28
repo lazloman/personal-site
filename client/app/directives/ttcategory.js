@@ -55,10 +55,10 @@ angular.module('thethurmansApp')
           var uploadFile = {
             'title': file.name,
             'data': file
-          }
+          };
 
           Upload.upload({
-            url: './uploads',
+            url: './uploads/',
             data: {file: uploadFile}
           }).progress(function (evt) {
             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);

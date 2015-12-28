@@ -21,8 +21,8 @@ module.exports = function(app) {
   app.route('/api/:id')
     .get(file.read);
 
-  app.route('/uploads')
-    .post(file.create);
+  //app.route('/uploads')
+  //  .post(file.create);
 
   // All other routes should redirect to the index.htm
   //

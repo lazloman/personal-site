@@ -35,9 +35,16 @@ require('./routes')(app);
 
 app.use(bodyParser.json());
 
-app.post('./uploads/', upload.single('droppedFiles'), function (req, res, next) {
-  console.log('Here');
+//app.post('/uploads', upload.single('droppedFiles'), function (req, res, next) {
+//  console.log('Here');
+//});
+
+app.post('/uploads', upload.single('droppedFiles'), function(req, res){
+  console.log(req.body) // form fields
+  console.log(req.file) // form files
+  res.status(204).end()
 });
+
 //app.use(bodyParser.json()); // support json encoded bodies
 //app.use(bodyParser.urlencoded({ extended: true }));
 
