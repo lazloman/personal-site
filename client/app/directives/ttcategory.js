@@ -49,10 +49,7 @@ angular.module('thethurmansApp')
 
         $scope.uploadFile = function(file){
 
-          var fileId = Date.now();
-
           var uploadFile = {
-            'file_id': fileId,
             'data': file
           };
 
