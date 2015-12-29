@@ -53,21 +53,33 @@ exports.read = function(req, res) {
 exports.create = function(req, res) {
 
   var part = req.files.filefield;
+  var fileId = Date.now();
 
   var writeStream = gfs.createWriteStream({
     filename: part.name,
     mode: 'w',
+    metadata: {file_id: fileId},
     content_type:part.mimetype
   });
 
+
   writeStream.on('close', function() {
+
     return res.status(200).send({
-      message: 'Success'
+      file_id: fileId,
+      message: 'WooHoo'
     });
   });
 
-  writeStream.write(part.data);
+  //writeStream.on('begin', function (fileInfo, req, res) {
+  //
+  //});
 
+  writeStream.on('end', function (fileInfo, req, res) {
+    console.log(fileInfo);
+  });
+
+  writeStream.write(part.data);
   writeStream.end();
 };
 

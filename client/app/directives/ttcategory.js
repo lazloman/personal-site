@@ -19,7 +19,7 @@ angular.module('thethurmansApp')
         $scope.removeCategory = function(){
 
           $scope.modalInstance = $modal.open({
-            templateUrl: '/api/files',
+            templateUrl: 'app/directives/confirm-category-removal.html',
             scope: $scope
           });
         };
@@ -42,9 +42,6 @@ angular.module('thethurmansApp')
 
           if(typeof files !== 'undefined' && files[0].size > 0) {
 
-            //$scope.record.records.push({'name': files[0].name, 'id': 'sddsfdsfsdf'});
-            //MongoService.http.update({'id': $scope.record._id, 'records': $scope.record.records});
-
             $scope.uploadFile(files[0]);
 
           }
@@ -52,8 +49,10 @@ angular.module('thethurmansApp')
 
         $scope.uploadFile = function(file){
 
+          var fileId = Date.now();
+
           var uploadFile = {
-            'title': file.name,
+            'file_id': fileId,
             'data': file
           };
 
@@ -62,12 +61,14 @@ angular.module('thethurmansApp')
             data: uploadFile
           }).progress(function (evt) {
             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-            $scope.log = 'progress: ' + progressPercentage + '% ' +
-              evt.config.data.title + '\n' + $scope.log;
+            //$scope.log = 'progress: ' + progressPercentage + '% ' +
+            //  evt.config.data.title + '\n' + $scope.log;
+
           }).success(function (data, status, headers, config) {
-            $timeout(function(evt) {
-              $scope.log = 'file: ' + evt.config.data.title + ', Response: ' + JSON.stringify(data) + '\n' + $scope.log;
-            });
+
+            $scope.record.records.push({'name': file.name, 'id': config.data.file_id});
+            MongoService.http.update({'id': $scope.record._id, 'records': $scope.record.records});
+
           }).error(function(err){
             console.log(err);
           });

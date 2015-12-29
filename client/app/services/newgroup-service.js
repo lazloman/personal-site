@@ -8,6 +8,8 @@ angular.module('thethurmansApp')
     NewGroupService.NewGroup = function (title) {
       this.title = title;
       this.records = [];
+      this.docType = 'Category';
+
       return this;
     };
 

@@ -41,14 +41,12 @@ app.use(bodyParser.json());
 
 app.post('/uploads', upload.single('data'), function(req, res){
 
-
-  //console.log(req.body); // form fields
-  console.log(req.file);
-
   var part = req.file.fieldname;
 
+  console.log(req);
+
   var writeStream = gfs.createWriteStream({
-    filename: part.originalname,
+    filename: req.file.originalname,
     mode: 'w',
     content_type:part.mimetype
   });
@@ -59,16 +57,11 @@ app.post('/uploads', upload.single('data'), function(req, res){
     });
   });
 
-  writeStream.write(part.data);
+  console.log(part);
+  writeStream.write(req.file.path);
 
   writeStream.end();
-
-   // form files
-  //res.status(204).end()
 });
-
-//app.use(bodyParser.json()); // support json encoded bodies
-//app.use(bodyParser.urlencoded({ extended: true }));
 
 // Start server
 server.listen(config.port, config.ip, function () {

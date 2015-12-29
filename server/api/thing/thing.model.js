@@ -5,6 +5,7 @@ var mongoose = require('mongoose'),
 
 var DocumentsSchema = new Schema({
   title: String,
+  docType: String,
   records: Array
 });
 
