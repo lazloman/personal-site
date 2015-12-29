@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('thethurmansApp')
-  .directive('ttcategory', function(MongoService, Upload, $modal, $timeout, GridFSService) {
+  .directive('ttcategory', function(MongoService, Upload, $modal) {
 
     return {
       scope: {
@@ -46,6 +46,21 @@ angular.module('thethurmansApp')
 
           }
         });
+
+        $scope.removeFile = function(document){
+
+          $scope.document = document;
+
+          $scope.modalInstance = $modal.open({
+            templateUrl: 'app/directives/confirm-file-removal.html',
+            scope: $scope,
+            resolve:{
+              document: function () {
+                return $scope.document;
+              }
+            }
+          });
+        };
 
         $scope.uploadFile = function(file){
 

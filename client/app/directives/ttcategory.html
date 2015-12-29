@@ -10,14 +10,14 @@
       ngf-allow-dir="false"
       accept="image/*,application/pdf"
       ngf-pattern="'image/*,application/pdf'">{{record.title}}
-      <span class="hover-content glyphicon glyphicon-remove pull-right" ng-click="removeCategory(record); $event.stopPropagation()"></span>
+      <span class="hover-content glyphicon glyphicon-remove pull-right" ng-click="removeCategory(); $event.stopPropagation()"></span>
     </div>
   </div>
 </form>
 <div ng-if="record.records.length > 0">
   <div class="panel panel-default hover-me" uib-collapse="isCollapsed" ng-repeat="document in record.records">
     <div class="panel-heading">{{document.name | removeFileExtension}}
-      <span class="hover-content glyphicon glyphicon-remove pull-right" ng-click="$event.stopPropagation()"></span>
+      <span class="hover-content glyphicon glyphicon-remove pull-right" ng-click="removeFile(document);$event.stopPropagation()"></span>
     </div>
   </div>
 </div>
