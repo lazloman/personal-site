@@ -57,7 +57,7 @@ angular.module('thethurmansApp')
             url: './uploads',
             data: uploadFile
           }).progress(function (evt) {
-            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            //var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
             //$scope.log = 'progress: ' + progressPercentage + '% ' +
             //  evt.config.data.title + '\n' + $scope.log;
 
