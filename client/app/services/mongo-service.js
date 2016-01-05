@@ -9,7 +9,7 @@ angular.module('thethurmansApp')
           newGroup: '@newGroup',
           records: '@records',
           id: '@id',
-          file: '@file'
+          fileId: '@fileId'
         }, {
         update: {
           method: 'PUT',
@@ -35,6 +35,10 @@ angular.module('thethurmansApp')
         delete:{
           method: 'DELETE',
           url: '/api/things/:id'
+        },
+        removeFile:{
+          method: 'DELETE',
+          url: '/api/things/:id/records/:fileId'
         }
       })
     };

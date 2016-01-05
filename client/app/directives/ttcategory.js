@@ -64,9 +64,10 @@ angular.module('thethurmansApp')
 
         $scope.deleteFile = function(){
 
-          MongoService.http.delete({'name': $scope.record.records[$scope.index].name}).$promise.then(function (data){
+          MongoService.http.removeFile({'id': $scope.record._id , 'fileId': $scope.record.records[$scope.index].id}).$promise.then(function (){
 
-            $scope.modalInstance.dismiss('cancel');
+          }).finally(function(){
+            $scope.modalInstance.dismiss();
           });
         },
 
@@ -84,7 +85,7 @@ angular.module('thethurmansApp')
             //$scope.log = 'progress: ' + progressPercentage + '% ' +
             //  evt.config.data.title + '\n' + $scope.log;
 
-          }).success(function (data, status, headers, config) {
+          }).success(function (data) {
 
             $scope.record.records.push({'name': file.name, 'id': data.file._id});
             MongoService.http.update({'id': $scope.record._id, 'records': $scope.record.records});

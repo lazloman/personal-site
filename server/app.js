@@ -54,7 +54,7 @@ app.post('/uploads', upload.single('data'), function(req, res){
   writeStream.on('close', function(fileinfo) {
 
     return res.status(200).send({
-      message: 'Success',
+      message: 'saas',
       file: fileinfo
     });
   });
