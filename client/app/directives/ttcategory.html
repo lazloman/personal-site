@@ -17,7 +17,7 @@
 <div ng-if="record.records.length > 0">
   <div class="panel panel-default hover-me" uib-collapse="isCollapsed" ng-repeat="document in record.records">
     <div class="panel-heading">{{document.name | removeFileExtension}}
-      <span class="hover-content glyphicon glyphicon-remove pull-right" ng-click="removeFile(document);$event.stopPropagation()"></span>
+      <span class="hover-content glyphicon glyphicon-remove pull-right" ng-click="removeFile($index);$event.stopPropagation()"></span>
     </div>
   </div>
 </div>

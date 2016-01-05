@@ -47,20 +47,28 @@ angular.module('thethurmansApp')
           }
         });
 
-        $scope.removeFile = function(document){
+        $scope.removeFile = function(index){
 
-          $scope.document = document;
+          $scope.index = index;
 
           $scope.modalInstance = $modal.open({
             templateUrl: 'app/directives/confirm-file-removal.html',
             scope: $scope,
             resolve:{
-              document: function () {
-                return $scope.document;
+              index: function () {
+                return $scope.index;
               }
             }
           });
         };
+
+        $scope.deleteFile = function(){
+
+          MongoService.http.delete({'name': $scope.record.records[$scope.index].name}).$promise.then(function (data){
+
+            $scope.modalInstance.dismiss('cancel');
+          });
+        },
 
         $scope.uploadFile = function(file){
 
@@ -78,7 +86,7 @@ angular.module('thethurmansApp')
 
           }).success(function (data, status, headers, config) {
 
-            $scope.record.records.push({'name': file.name, 'id': config.data.file_id});
+            $scope.record.records.push({'name': file.name, 'id': data.file._id});
             MongoService.http.update({'id': $scope.record._id, 'records': $scope.record.records});
 
           }).error(function(err){

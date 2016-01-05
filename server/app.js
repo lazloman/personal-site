@@ -42,22 +42,23 @@ app.use(bodyParser.json());
 app.post('/uploads', upload.single('data'), function(req, res){
 
   var part = req.file.fieldname;
-
-  console.log(req);
+  var fileId = Date.now();
 
   var writeStream = gfs.createWriteStream({
     filename: req.file.originalname,
     mode: 'w',
-    content_type:part.mimetype
+    content_type:part.mimetype,
+    metadata: {fileId: fileId},
   });
 
-  writeStream.on('close', function() {
+  writeStream.on('close', function(fileinfo) {
+
     return res.status(200).send({
-      message: 'Success'
+      message: 'Success',
+      file: fileinfo
     });
   });
 
-  console.log(part);
   writeStream.write(req.file.path);
 
   writeStream.end();

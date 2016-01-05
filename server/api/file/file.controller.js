@@ -58,7 +58,7 @@ exports.create = function(req, res) {
   var writeStream = gfs.createWriteStream({
     filename: part.name,
     mode: 'w',
-    metadata: {file_id: fileId},
+    metadata: {fileId: fileId},
     content_type:part.mimetype
   });
 
@@ -66,7 +66,7 @@ exports.create = function(req, res) {
   writeStream.on('close', function() {
 
     return res.status(200).send({
-      file_id: fileId,
+      fileId: fileId,
       message: 'WooHoo'
     });
   });
