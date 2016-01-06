@@ -14,7 +14,7 @@ var upload = multer({ 'dest': './uploads/', 'Content-Type': 'application/json'})
 var express = require('express');
 var mongoose = require('mongoose');
 var config = require('./config/environment');
-var Documents = require('./things/thing.model');
+var Documents = require('./api/things/thing.model');
 
 //var bodyParser = require('body-parser');
 
@@ -79,7 +79,7 @@ app.get('/api/things/:id', function(req, res) {
   });
 });
 
-app.get('/api/things', function(req, res) {
+app.get('/api/documents', function(req, res) {
 
         // use mongoose to get all documents in the database
         Documents.find(function(err, documents) {
