@@ -54,7 +54,7 @@ app.post('/uploads', upload.single('data'), function(req, res){
   writeStream.on('close', function(fileinfo) {
 
     return res.status(200).send({
-      message: 'saas',
+      message: 'Success',
       file: fileinfo
     });
   });
@@ -62,6 +62,19 @@ app.post('/uploads', upload.single('data'), function(req, res){
   writeStream.write(req.file.path);
 
   writeStream.end();
+});
+
+app.get('/api/things/:id', function(req, res) {
+  db.collection('documents', function(error, collection) {
+    collection.findOne({ _id : collection.db.bson_serializer.ObjectID.createFromHexString(req.params.id) },
+      function(error, document) {
+        if (error || !document) {
+          res.render('error', {});
+        } else {
+          res.render('document', { document : document });
+        }
+      });
+  });
 });
 
 // Start server

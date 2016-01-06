@@ -8,8 +8,9 @@ angular.module('thethurmansApp')
       http: $resource('/api/things', {
           newGroup: '@newGroup',
           records: '@records',
-          id: '@id',
-          fileId: '@fileId'
+          id: '@_id',
+          fileId: '@fileId',
+          path: '@path'
         }, {
         update: {
           method: 'PUT',
@@ -17,6 +18,12 @@ angular.module('thethurmansApp')
         },
         get: {
           isArray: true,
+          method: 'GET'
+        },
+        getDocument:{
+          isArray: true,
+          id: '@id',
+          url: '/api/things/:id',
           method: 'GET'
         },
         writefile:{
@@ -38,7 +45,7 @@ angular.module('thethurmansApp')
         },
         removeFile:{
           method: 'DELETE',
-          url: '/api/things/:id/records/:fileId'
+          url: '/api/things/:id/:path/:fileId'
         }
       })
     };

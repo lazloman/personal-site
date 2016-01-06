@@ -64,11 +64,20 @@ angular.module('thethurmansApp')
 
         $scope.deleteFile = function(){
 
-          MongoService.http.removeFile({'id': $scope.record._id , 'fileId': $scope.record.records[$scope.index].id}).$promise.then(function (){
+          MongoService.http.getDocument({'_id': $scope.record._id}).$promise.then(function(data){
+
+            var ans = data;
+            console.log(ans);
 
           }).finally(function(){
+
             $scope.modalInstance.dismiss();
           });
+          //MongoService.http.removeFile({'path': 'records', 'id': $scope.record._id, 'fileId': $scope.record.records[$scope.index].id}).$promise.then(function (){
+          //
+          //}).finally(function(){
+          //  $scope.modalInstance.dismiss();
+          //});
         },
 
         $scope.uploadFile = function(file){
