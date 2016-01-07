@@ -68,7 +68,7 @@ app.post('/uploads', upload.single('data'), function(req, res){
 
 app.get('/api/things/:id', function(req, res) {
 
-  Documents.findOne({_id : req.params.id}, function(err, documents) {
+  Documents.findById({_id : req.params.id}, function(err, documents) {
 
     // if there is an error retrieving, send the error. nothing after res.send(err) will execute
     if (err)
