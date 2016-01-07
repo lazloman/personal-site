@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('thethurmansApp')
-  .directive('ttcategory', function(MongoService, Upload, $modal) {
+  .directive('ttcategory', function(MongoService, Upload, $modal, $http) {
 
     return {
       scope: {
@@ -64,20 +64,19 @@ angular.module('thethurmansApp')
 
         $scope.deleteFile = function(){
 
-          MongoService.http.getDocument({'_id': $scope.record._id}).$promise.then(function(data){
+          var document;
 
-            var ans = data;
-            console.log(ans);
+          $http.get('/api/things/' + $scope.record._id)
+            .success(function(data) {
+              document = data;
+            })
+            .error(function(err) {
+              console.log(err);
+            })
+              .finally(function(){
+                $scope.modalInstance.dismiss();
+              });
 
-          }).finally(function(){
-
-            $scope.modalInstance.dismiss();
-          });
-          //MongoService.http.removeFile({'path': 'records', 'id': $scope.record._id, 'fileId': $scope.record.records[$scope.index].id}).$promise.then(function (){
-          //
-          //}).finally(function(){
-          //  $scope.modalInstance.dismiss();
-          //});
         },
 
         $scope.uploadFile = function(file){

@@ -14,7 +14,7 @@ var upload = multer({ 'dest': './uploads/', 'Content-Type': 'application/json'})
 var express = require('express');
 var mongoose = require('mongoose');
 var config = require('./config/environment');
-var Documents = require('./api/things/thing.model');
+var Documents = require('./api/thing/thing.model');
 
 //var bodyParser = require('body-parser');
 
@@ -67,19 +67,18 @@ app.post('/uploads', upload.single('data'), function(req, res){
 });
 
 app.get('/api/things/:id', function(req, res) {
-  db.collection('documents', function(error, collection) {
-    collection.findOne({ _id : collection.db.bson_serializer.ObjectID.createFromHexString(req.params.id) },
-      function(error, document) {
-        if (error || !document) {
-          res.render('error', {});
-        } else {
-          res.render('document', { document : document });
-        }
-      });
+
+  Documents.findOne({_id : req.params.id}, function(err, documents) {
+
+    // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+    if (err)
+      res.send(err);
+
+    res.json(documents); // return all documents in JSON format
   });
 });
 
-app.get('/api/documents', function(req, res) {
+app.get('/api/things', function(req, res) {
 
         // use mongoose to get all documents in the database
         Documents.find(function(err, documents) {
