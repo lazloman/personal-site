@@ -8,8 +8,8 @@ angular.module('thethurmansApp')
       http: $resource('/api/things', {
           newGroup: '@newGroup',
           records: '@records',
-          id: '@_id',
-          fileId: '@fileId',
+          id: '@id',
+          file: '@file',
           path: '@path'
         }, {
         update: {
