@@ -66,30 +66,6 @@ app.post('/uploads', upload.single('data'), function(req, res){
   writeStream.end();
 });
 
-app.get('/api/things/:id', function(req, res) {
-
-  Documents.findById({_id : req.params.id}, function(err, documents) {
-
-    // if there is an error retrieving, send the error. nothing after res.send(err) will execute
-    if (err)
-      res.send(err);
-
-    res.json(documents); // return all documents in JSON format
-  });
-});
-
-app.get('/api/things', function(req, res) {
-
-        // use mongoose to get all documents in the database
-        Documents.find(function(err, documents) {
-
-            // if there is an error retrieving, send the error. nothing after res.send(err) will execute
-            if (err)
-                res.send(err)
-
-            res.json(documents); // return all documents in JSON format
-        });
-    });
 // Start server
 server.listen(config.port, config.ip, function () {
   console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));

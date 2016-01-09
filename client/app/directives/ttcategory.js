@@ -64,11 +64,11 @@ angular.module('thethurmansApp')
 
         $scope.deleteFile = function(){
 
-          var document;
+          var newRecord = $scope.record.records.splice($scope.index, 1);
 
           $http.get('/api/things/' + $scope.record._id)
             .success(function(data) {
-              document = data;
+
             })
             .error(function(err) {
               console.log(err);
@@ -76,7 +76,6 @@ angular.module('thethurmansApp')
               .finally(function(){
                 $scope.modalInstance.dismiss();
               });
-
         },
 
         $scope.uploadFile = function(file){

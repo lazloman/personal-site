@@ -20,12 +20,6 @@ angular.module('thethurmansApp')
           isArray: true,
           method: 'GET'
         },
-        getDocument:{
-          isArray: true,
-          id: '@id',
-          url: '/api/things/:id',
-          method: 'GET'
-        },
         writefile:{
           params:{
             id:'@id',
