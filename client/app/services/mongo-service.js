@@ -16,10 +16,10 @@ angular.module('thethurmansApp')
           method: 'PUT',
           url: '/api/things/:id'
         },
-        get: {
-          isArray: true,
-          method: 'GET'
-        },
+        //get: {
+        //  isArray: true,
+        //  method: 'GET'
+        //},
         writefile:{
           params:{
             id:'@id',

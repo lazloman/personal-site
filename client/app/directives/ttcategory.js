@@ -50,6 +50,7 @@ angular.module('thethurmansApp')
         $scope.removeFile = function(index){
 
           $scope.index = index;
+          $scope.document = $scope.record.records[$scope.index];
 
           $scope.modalInstance = $modal.open({
             templateUrl: 'app/directives/confirm-file-removal.html',
@@ -57,6 +58,9 @@ angular.module('thethurmansApp')
             resolve:{
               index: function () {
                 return $scope.index;
+              },
+              document: function(){
+                return $scope.document;
               }
             }
           });
@@ -64,18 +68,19 @@ angular.module('thethurmansApp')
 
         $scope.deleteFile = function(){
 
-          var newRecord = $scope.record.records.splice($scope.index, 1);
+          $scope.record.records.splice($scope.index, 1);
+          console.dir($scope.record);
 
-          $http.get('/api/things/' + $scope.record._id)
+          $http.put('/api/things/' + $scope.record._id, $scope.record)
             .success(function(data) {
 
             })
             .error(function(err) {
               console.log(err);
             })
-              .finally(function(){
-                $scope.modalInstance.dismiss();
-              });
+            .finally(function(){
+              $scope.modalInstance.dismiss();
+            });
         },
 
         $scope.uploadFile = function(file){

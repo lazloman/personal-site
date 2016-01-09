@@ -23,7 +23,7 @@ module.exports = function(app) {
   app.route('/api/:id')
     .get(file.read);
 
-  app.route('/api/things/:id').get(documents.show);
+  app.route('/api/things/:id').get(documents.update);
   //app.route('/uploads')
   //  .post(file.create);
 

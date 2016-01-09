@@ -39,11 +39,12 @@ exports.create = function(req, res) {
 
 // Updates an existing thing in the DB.
 exports.update = function(req, res) {
+
   if(req.body._id) { delete req.body._id; }
   Documents.findById(req.params.id, function (err, thing) {
     if (err) { return handleError(res, err); }
     if(!thing) { return res.send(404); }
-    var updated = _.merge(thing, req.body);
+    var updated = _.extend(thing, req.body);
     updated.markModified('records');
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
@@ -51,6 +52,8 @@ exports.update = function(req, res) {
     });
   });
 };
+
+
 
 // Deletes a thing from the DB.
 exports.destroy = function(req, res) {
