@@ -15,6 +15,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var config = require('./config/environment');
 var Documents = require('./api/thing/thing.model');
+var File = require('./api/file/file.model');
 
 //var bodyParser = require('body-parser');
 
@@ -34,9 +35,11 @@ var app = express();
 var server = require('http').createServer(app);
 require('./config/express')(app);
 require('./routes')(app);
-
+app.use('/api/file', require('./api/file'));
 app.use(bodyParser.json());
 
+
+var file  = require('./api/file/file.controller');
 //app.post('/uploads', upload.single('droppedFiles'), function (req, res, next) {
 //  console.log('Here');
 //});
@@ -66,6 +69,7 @@ app.post('/uploads', upload.single('data'), function(req, res){
   writeStream.end();
 });
 
+app.delete('/api/file/delete/:id', file.destroy);
 // Start server
 server.listen(config.port, config.ip, function () {
   console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));

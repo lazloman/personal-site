@@ -68,19 +68,29 @@ angular.module('thethurmansApp')
 
         $scope.deleteFile = function(){
 
-          $scope.record.records.splice($scope.index, 1);
-          console.dir($scope.record);
+          var targetId = $scope.record.records[$scope.index].id;
 
-          $http.put('/api/things/' + $scope.record._id, $scope.record)
-            .success(function(data) {
-
+          $http.delete('/api/file/delete/' + targetId)
+            .success(function(){
+              $scope.record.records.splice($scope.index, 1);
             })
-            .error(function(err) {
-              console.log(err);
+            .error(function(err){
+              console.log('Error ' + err);
             })
             .finally(function(){
               $scope.modalInstance.dismiss();
             });
+
+          //$http.put('/api/things/' + $scope.record._id, $scope.record)
+          //  .success(function(data) {
+          //
+          //  })
+          //  .error(function(err) {
+          //    console.log(err);
+          //  })
+          //  .finally(function(){
+          //    $scope.modalInstance.dismiss();
+          //  });
         },
 
         $scope.uploadFile = function(file){

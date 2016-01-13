@@ -13,10 +13,14 @@ var _ = require('lodash');
 var File = require('./file.model');
 var mongoose = require('mongoose');
 
-var fs = require('fs');
 var Grid = require('gridfs-stream');
 Grid.mongo = mongoose.mongo;
 var gfs = new Grid(mongoose.connection.db);
+var ObjectId = require('mongoose').Types.ObjectId;
+
+function handleError(res, err) {
+  return res.send(err);
+}
 
 // Get list of things
 exports.read = function(req, res) {
@@ -72,9 +76,6 @@ exports.create = function(req, res) {
     });
   });
 
-  //writeStream.on('begin', function (fileInfo, req, res) {
-  //
-  //});
 
   writeStream.on('end', function (fileInfo, req, res) {
     console.log(fileInfo);
@@ -86,16 +87,17 @@ exports.create = function(req, res) {
 
 // Deletes a thing from the DB.
 exports.destroy = function(req, res) {
-  File.findById(req.params.id, function (err, thing) {
-    if(err) { return handleError(res, err); }
-    if(!thing) { return res.send(404); }
-    thing.remove(function(err) {
-      if(err) { return handleError(res, err); }
-      return res.send(204);
-    });
+
+  var collection = gfs.collection('fs');
+  var id = new ObjectId(req.params.id);
+
+  collection.findOne({_id : id}, function (err, obj) {
+
+    if (err) return handleError(res, err); // don't forget to handle error/
+    gfs.remove(obj, function(err){
+      if (err) res.send(500);
+       return res.json(200);
+    })
   });
 };
 
-function handleError(res, err) {
-  return res.send(500, err);
-}
