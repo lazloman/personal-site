@@ -35,7 +35,7 @@ angular.module('thethurmansApp')
 
         $scope.cancel = function () {
 
-          $scope.modalInstance.dismiss('cancel');
+          $scope.modalInstance.dismiss();
         };
 
         $scope.$watch('droppedFiles', function(files){
