@@ -69,17 +69,17 @@ angular.module('thethurmansApp')
         $scope.deleteFile = function(){
 
           var targetId = $scope.record.records[$scope.index].id;
+          $scope.record.records.splice($scope.index, 1);
 
           $http.delete('/api/file/delete/' + targetId)
             .success(function(){
-              $scope.record.records.splice($scope.index, 1);
-              
-                $http.put('/api/things/' + $scope.record._id, $scope.record)
-                .success(function(data) {
-                    console.log('Record removed');
+
+              $http.put('/api/things/' + $scope.record._id, $scope.record)
+                .success(function() {
+                  console.log('Record removed');
                 })
                 .error(function(err) {
-                  console.log('Could not remove record ' + err);
+                  console.dir(err);
                 });
             })
             .error(function(err){
