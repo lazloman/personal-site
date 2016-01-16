@@ -40,6 +40,7 @@ app.use(bodyParser.json());
 
 
 var file  = require('./api/file/file.controller');
+var document = require('./api/thing/thing.controller');
 //app.post('/uploads', upload.single('droppedFiles'), function (req, res, next) {
 //  console.log('Here');
 //});
@@ -75,5 +76,6 @@ server.listen(config.port, config.ip, function () {
   console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
 });
 
+app.put('/api/document/:id', document.update);
 // Expose app
 exports = module.exports = app;

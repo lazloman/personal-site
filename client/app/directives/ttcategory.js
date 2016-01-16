@@ -74,9 +74,9 @@ angular.module('thethurmansApp')
           $http.delete('/api/file/delete/' + targetId)
             .success(function(){
 
-              $http.put('/api/things/' + $scope.record._id, $scope.record)
-                .success(function() {
-                  console.log('Record removed');
+              $http.put('/api/document/' + $scope.record._id, $scope.record)
+                .success(function(data) {
+                    $scope.record =  data;
                 })
                 .error(function(err) {
                   console.dir(err);
@@ -107,7 +107,14 @@ angular.module('thethurmansApp')
           }).success(function (data) {
 
             $scope.record.records.push({'name': file.name, 'id': data.file._id});
-            MongoService.http.update({'id': $scope.record._id, 'records': $scope.record.records});
+
+            $http.put('/api/document/' + $scope.record._id, $scope.record)
+              .success(function(data) {
+                $scope.record =  data;
+              })
+              .error(function(err) {
+                console.dir(err);
+              });
 
           }).error(function(err){
             console.log(err);

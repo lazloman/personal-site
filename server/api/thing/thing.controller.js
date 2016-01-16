@@ -11,6 +11,7 @@
 
 var _ = require('lodash');
 var Documents = require('./thing.model');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 // Get list of things
 exports.index = function(req, res) {
@@ -40,8 +41,10 @@ exports.create = function(req, res) {
 // Updates an existing thing in the DB.
 exports.update = function(req, res) {
 
+  var id = new ObjectId(req.params.id);
+
   if(req.body._id) { delete req.body._id; }
-  Documents.findById(req.params.id, function (err, thing) {
+  Documents.findById(id, function (err, thing) {
     if (err) { return handleError(res, err); }
     if(!thing) { return res.send(404); }
     var updated = _.extend(thing, req.body);

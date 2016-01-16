@@ -11,7 +11,7 @@ module.exports = function(app) {
   // Insert routes below
   app.use('/api/things', require('./api/thing'));
   app.use('/api/file', require('./api/file'));
-  app.use('/api/thing', require('./api/thing'));
+  app.use('/api/document', require('./api/thing'));
 
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')
@@ -23,7 +23,7 @@ module.exports = function(app) {
   app.route('/api/:id')
     .get(file.read);
 
-  app.route('/api/things/:id').get(documents.update);
+  app.route('/api/document/:id').get(documents.update);
   app.route('/api/file/delete/:id').get(file.destroy);
 
   // All other routes should redirect to the index.htm
