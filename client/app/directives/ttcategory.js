@@ -76,7 +76,7 @@ angular.module('thethurmansApp')
 
               $http.put('/api/document/' + $scope.record._id, $scope.record)
                 .success(function(data) {
-                    $scope.record =  data;
+                    $scope.record = data;
                 })
                 .error(function(err) {
                   console.dir(err);
@@ -110,7 +110,7 @@ angular.module('thethurmansApp')
 
             $http.put('/api/document/' + $scope.record._id, $scope.record)
               .success(function(data) {
-                $scope.record =  data;
+                $scope.record = data;
               })
               .error(function(err) {
                 console.dir(err);

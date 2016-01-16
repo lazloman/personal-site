@@ -71,11 +71,13 @@ app.post('/uploads', upload.single('data'), function(req, res){
 });
 
 app.delete('/api/file/delete/:id', file.destroy);
+app.put('/api/document/:id', document.update);
+
 // Start server
 server.listen(config.port, config.ip, function () {
   console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
 });
 
-app.put('/api/document/:id', document.update);
+
 // Expose app
 exports = module.exports = app;
