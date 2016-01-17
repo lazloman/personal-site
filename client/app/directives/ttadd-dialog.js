@@ -21,9 +21,6 @@ angular.module('thethurmansApp')
           }).then(function (title) {
             if (title) {
               var newGroup = NewGroupService.NewGroup(title);
-              //MongoService.http.post(newGroup).$promise.then(function(data){
-              //      $scope.documents.push(data);
-              //});
 
               $http.post('/api/document/create', newGroup)
                 .success(function(data){
