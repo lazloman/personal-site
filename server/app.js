@@ -38,12 +38,8 @@ require('./routes')(app);
 app.use('/api/file', require('./api/file'));
 app.use(bodyParser.json());
 
-
 var file  = require('./api/file/file.controller');
 var document = require('./api/thing/thing.controller');
-//app.post('/uploads', upload.single('droppedFiles'), function (req, res, next) {
-//  console.log('Here');
-//});
 
 app.post('/uploads', upload.single('data'), function(req, res){
 
@@ -54,7 +50,7 @@ app.post('/uploads', upload.single('data'), function(req, res){
     filename: req.file.originalname,
     mode: 'w',
     content_type:part.mimetype,
-    metadata: {fileId: fileId},
+    metadata: {fileId: fileId}
   });
 
   writeStream.on('close', function(fileinfo) {

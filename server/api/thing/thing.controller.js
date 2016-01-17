@@ -56,8 +56,6 @@ exports.update = function(req, res) {
   });
 };
 
-
-
 // Deletes a thing from the DB.
 exports.destroy = function(req, res) {
 
