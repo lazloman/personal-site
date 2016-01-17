@@ -23,6 +23,8 @@ module.exports = function(app) {
     .get(file.read);
 
   app.route('/api/document/:id').get(documents.update);
+  app.route('/api/document/delete/:id').get(documents.destroy);
+  app.route('/api/document/create').post(documents.create);
 
   // All other routes should redirect to the index.htm
   //

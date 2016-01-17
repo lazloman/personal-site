@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('thethurmansApp')
-  .directive('ttcategory', function(MongoService, Upload, $modal, $http) {
+  .directive('ttcategory', function(Upload, $modal, $http) {
 
     return {
       scope: {
@@ -26,11 +26,13 @@ angular.module('thethurmansApp')
 
         $scope.ok = function(){
 
-          MongoService.http.delete({'id': $scope.record._id}).$promise.then(function () {
-
-            var index = $scope.allRecords.indexOf($scope.record);
-            $scope.allRecords.splice(index, 1);
-          });
+          $http.delete('/api/document/delete/' +  $scope.record._id)
+            .success(function(data){
+              console.log(data);
+            })
+            .error(function(err){
+              console.log(err);
+            });
         };
 
         $scope.cancel = function () {

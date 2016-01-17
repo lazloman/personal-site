@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('thethurmansApp')
-  .directive('addGroupButton', function(prompt, MongoService, NewGroupService) {
+  .directive('addGroupButton', function(prompt, $http, NewGroupService) {
 
     return{
 
@@ -21,9 +21,17 @@ angular.module('thethurmansApp')
           }).then(function (title) {
             if (title) {
               var newGroup = NewGroupService.NewGroup(title);
-              MongoService.http.post(newGroup).$promise.then(function(data){
-                    $scope.documents.push(data);
-              });
+              //MongoService.http.post(newGroup).$promise.then(function(data){
+              //      $scope.documents.push(data);
+              //});
+
+              $http.post('/api/document/create', newGroup)
+                .success(function(data){
+                  $scope.documents.push(data);
+                })
+                .error(function(err){
+                  console.log(err);
+                });
             }
           });
         };
