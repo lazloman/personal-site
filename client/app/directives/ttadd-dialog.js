@@ -28,6 +28,9 @@ angular.module('thethurmansApp')
                 })
                 .error(function(err){
                   console.log(err);
+                })
+                .finally(function(){
+                  $scope.modalInstance.dismiss();
                 });
             }
           });

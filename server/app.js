@@ -14,7 +14,7 @@ var upload = multer({ 'dest': './uploads/', 'Content-Type': 'application/json'})
 var express = require('express');
 var mongoose = require('mongoose');
 var config = require('./config/environment');
-var Documents = require('./api/thing/thing.model');
+var Documents = require('./api/document/document.model');
 var File = require('./api/file/file.model');
 
 //var bodyParser = require('body-parser');
@@ -39,7 +39,7 @@ app.use('/api/file', require('./api/file'));
 app.use(bodyParser.json());
 
 var file  = require('./api/file/file.controller');
-var document = require('./api/thing/thing.controller');
+var document = require('./api/document/document.controller');
 
 app.post('/uploads', upload.single('data'), function(req, res){
 

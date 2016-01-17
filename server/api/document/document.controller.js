@@ -10,23 +10,23 @@
 'use strict';
 
 var _ = require('lodash');
-var Documents = require('./thing.model');
+var Documents = require('./document.model');
 var ObjectId = require('mongoose').Types.ObjectId;
 
 // Get list of things
 exports.index = function(req, res) {
-  Documents.find(function (err, things) {
+  Documents.find(function (err, documents) {
     if(err) {  return handleError(res, err); }
-    return res.json(200, things);
+    return res.json(200, documents);
   });
 };
 
 // Get a single thing
 exports.show = function(req, res) {
-  Documents.findById(req.params.id, function (err, thing) {
+  Documents.findById(req.params.id, function (err, document) {
     if(err) { return handleError(res, err); }
     if(!thing) { return res.send(404); }
-    return res.json(thing);
+    return res.json(document);
   });
 };
 
@@ -59,10 +59,10 @@ exports.update = function(req, res) {
 // Deletes a thing from the DB.
 exports.destroy = function(req, res) {
 
-  Documents.findById(req.params.id, function (err, thing) {
+  Documents.findById(req.params.id, function (err, document) {
     if(err) { return handleError(res, err); }
-    if(!thing) { return res.send(404); }
-    thing.remove(function(err) {
+    if(!document) { return res.send(404); }
+    document.remove(function(err) {
       if(err) { return handleError(res, err); }
       return res.send(204);
     });
