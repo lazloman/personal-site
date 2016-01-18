@@ -26,15 +26,15 @@ angular.module('thethurmansApp')
 
         $scope.ok = function(){
 
-          $http.delete('/api/document/delete/' +  $scope.record._id)
-            .success(function(){
-              var index = $scope.allRecords.indexOf($scope.record);
-              $scope.allRecords.splice(index, 1);
+          $http.delete('/api/document/remove/' + $scope.record._id)
+            .success(function(data){
+              console.log(data);
             })
             .error(function(err){
               console.log(err);
             })
             .finally(function(){
+
               $scope.modalInstance.dismiss();
             });
         };

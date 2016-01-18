@@ -69,6 +69,18 @@ exports.destroy = function(req, res) {
   });
 };
 
+// Deletes a thing from the DB.
+exports.remove = function(req, res) {
+
+  Documents.findById(req.params.id, function (err, document) {
+    if(err) { return handleError(res, err); }
+    if(!document) { return res.send(404); }
+    document.remove({}, function(err) {
+      if(err) { return handleError(res, err); }
+      return res.send(204);
+    });
+  });
+};
 
 function handleError(res, err) {
   return res.send(500, err);
