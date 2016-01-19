@@ -24,7 +24,7 @@ angular.module('thethurmansApp')
           });
         };
 
-        $scope.ok = function(){
+        $scope.removeCategory = function(){
 
           $scope.modalInstance.dismiss();
 
