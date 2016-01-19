@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('thethurmansApp')
-  .directive('ttcategory', function(Upload, $modal, $http) {
+  .directive('ttcategory', function(Upload, $modal, $http, $q) {
 
     return {
       scope: {
@@ -26,38 +26,35 @@ angular.module('thethurmansApp')
 
         $scope.ok = function(){
 
+          var promises = [];
           var ids = [];
-          var index = 0;
 
-          if($scope.record.records.length > 0){
+          var count = $scope.record.records.length;
+          var index;
 
-            var count = $scope.record.records.length;
-
-            for(index; index < count; index++){
-              ids.push($scope.record.records[index].id);
-            }
+          for(index = 0; index < count; index++){
+            ids.push($scope.record.records[index].id);
+          }
+          for(index = 0; index < count; index++){
+            promises.push($http.delete('/api/file/destroyAll/' + ids[index]));
           }
 
-          for(index = 0; index < count; index++) {
-            $http.delete('/api/file/destroyAll/' + ids[index])
-              .success(function () {
-                $http.delete('/api/document/remove/' + $scope.record._id)
-                  .success(function(data){
-                    console.log(data);
-                  })
-                  .error(function(err){
-                    console.log(err);
-                  });
+          $q.all(promises).then(function(){
 
+            $http.delete('/api/document/remove/' + $scope.record._id)
+              .success(function(data){
+                console.log(data);
               })
-              .error(function (err) {
+              .error(function(err){
                 console.log(err);
-              })
-              .finally(function(){
-
-                $scope.modalInstance.dismiss();
               });
-          }
+            $scope.modalInstance.dismiss();
+          }, function(err){
+
+              console.log(err);
+          }, function(err){
+            console.log(err);
+          });
         };
 
         $scope.cancel = function () {
