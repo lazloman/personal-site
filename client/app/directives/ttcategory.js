@@ -26,6 +26,8 @@ angular.module('thethurmansApp')
 
         $scope.ok = function(){
 
+          $scope.modalInstance.dismiss();
+
           var promises = [];
           var ids = [];
 
@@ -41,14 +43,14 @@ angular.module('thethurmansApp')
 
           $q.all(promises).then(function(){
 
-            $http.delete('/api/document/remove/' + $scope.record._id)
+
+            return $http.delete('/api/document/remove/' + $scope.record._id)
               .success(function(data){
                 console.log(data);
               })
               .error(function(err){
                 console.log(err);
               });
-            $scope.modalInstance.dismiss();
           }, function(err){
 
               console.log(err);
