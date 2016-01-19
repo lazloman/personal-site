@@ -26,17 +26,38 @@ angular.module('thethurmansApp')
 
         $scope.ok = function(){
 
-          $http.delete('/api/document/remove/' + $scope.record._id)
-            .success(function(data){
-              console.log(data);
-            })
-            .error(function(err){
-              console.log(err);
-            })
-            .finally(function(){
+          var ids = [];
+          var index = 0;
 
-              $scope.modalInstance.dismiss();
-            });
+          if($scope.record.records.length > 0){
+
+            var count = $scope.record.records.length;
+
+            for(index; index < count; index++){
+              ids.push($scope.record.records[index].id);
+            }
+          }
+
+          for(index = 0; index < count; index++) {
+            $http.delete('/api/file/destroyAll/' + ids[index])
+              .success(function () {
+                $http.delete('/api/document/remove/' + $scope.record._id)
+                  .success(function(data){
+                    console.log(data);
+                  })
+                  .error(function(err){
+                    console.log(err);
+                  });
+
+              })
+              .error(function (err) {
+                console.log(err);
+              })
+              .finally(function(){
+
+                $scope.modalInstance.dismiss();
+              });
+          }
         };
 
         $scope.cancel = function () {

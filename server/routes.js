@@ -27,6 +27,7 @@ module.exports = function(app) {
   app.route('/api/document/delete/:id').delete(documents.destroy);
   app.route('/api/document/create').post(documents.create);
   app.route('/api/document/remove/:id').delete(documents.remove);
+  app.route('/api/file/destroyAll/:ids').delete(file.destroyAll);
 
   // All other routes should redirect to the index.htm
   //

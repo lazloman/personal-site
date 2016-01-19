@@ -22,6 +22,10 @@ function handleError(res, err) {
   return res.send(err);
 }
 
+function callback(res, err){
+
+}
+
 // Get list of things
 exports.read = function(req, res) {
   gfs.files.find({ filename: req.params.filename }).toArray(function (err, files) {
@@ -101,3 +105,17 @@ exports.destroy = function(req, res) {
   });
 };
 
+exports.destroyAll = function(req, res) {
+
+  var id = new ObjectId(req.params.ids);
+  var collection = gfs.collection('fs');
+
+  collection.findOne({_id: id}, function (err, obj) {
+
+    if (err) return handleError(res, err); // don't forget to handle error/
+    gfs.remove(obj, function (err) {
+      if (err) res.send(500);
+      return res.json(200);
+    })
+  });
+};
