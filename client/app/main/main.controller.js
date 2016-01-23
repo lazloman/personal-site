@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('thethurmansApp')
-  .controller('MainCtrl', function ($scope, $http) {
+  .controller('ThurmanCtrl', function ($scope, $http) {
 
     $http.get('/api/document')
       .success(function(data) {

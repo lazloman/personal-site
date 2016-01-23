@@ -5,6 +5,6 @@ angular.module('thethurmansApp')
     $routeProvider
       .when('/', {
         templateUrl: 'app/main/main.html',
-        controller: 'MainCtrl'
+        controller: 'ThurmanCtrl'
       });
   });

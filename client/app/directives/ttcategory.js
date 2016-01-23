@@ -24,38 +24,35 @@ angular.module('thethurmansApp')
           });
         };
 
-        $scope.removeCategory = function(){
+        $scope.removeAllFiles = function(){
 
           $scope.modalInstance.dismiss();
 
           var promises = [];
-          var ids = [];
 
           var count = $scope.record.records.length;
           var index;
 
           for(index = 0; index < count; index++){
-            ids.push($scope.record.records[index].id);
-          }
-          for(index = 0; index < count; index++){
-            promises.push($http.delete('/api/file/destroyAll/' + ids[index]));
+            promises.push($http.delete('/api/file/destroyAll/' + $scope.record.records[index].id));
           }
 
           $q.all(promises).then(function(){
-
-
-            return $http.delete('/api/document/remove/' + $scope.record._id)
-              .success(function(data){
-                console.log(data);
+            $http.delete('/api/document/remove/' + $scope.record._id)
+              .success(function(){
+                var index = $scope.allRecords.indexOf($scope.record);
+                $scope.allRecords.splice(index, 1);
               })
               .error(function(err){
                 console.log(err);
               });
-          }, function(err){
-
+          })
+          .catch(function(err){
               console.log(err);
-          }, function(err){
-            console.log(err);
+          })
+          .finally(function(){
+
+
           });
         };
 
