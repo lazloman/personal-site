@@ -28,18 +28,22 @@ function callback(res, err){
 
 // Get list of things
 exports.read = function(req, res) {
-  gfs.files.find({ filename: req.params.filename }).toArray(function (err, files) {
 
-    if(files.length===0){
+  var id = new ObjectId(req.params.id);
+  var collection = gfs.collection('fs');
+
+  collection.findOne({_id: id}, function (err, obj) {
+
+    if(!obj){
       return res.status(400).send({
         message: 'File not found'
       });
     }
 
-    res.writeHead(200, {'Content-Type': files[0].contentType});
+    res.writeHead(200, {'Content-Type': obj.contentType});
 
     var readstream = gfs.createReadStream({
-      filename: files[0].filename
+      _id: obj._id
     });
 
     readstream.on('data', function(data) {

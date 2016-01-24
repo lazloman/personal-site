@@ -59,3 +59,7 @@
 .hover-me:hover .hover-content {
   opacity:1;
 }
+
+div.file-name:hover{
+  text-decoration: underline;
+}

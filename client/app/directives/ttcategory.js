@@ -16,6 +16,18 @@ angular.module('thethurmansApp')
 
         $scope.isCollapsed = true;
 
+        $scope.downloadFile = function(fileId){
+
+          $http.get('/api/file/' + fileId)
+            .success(function(data){
+
+              $scope.file = data;
+            })
+            .error(function(err){
+              console.log(err);
+            });
+        };
+
         $scope.removeCategory = function(){
 
           $scope.modalInstance = $modal.open({

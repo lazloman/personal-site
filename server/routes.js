@@ -19,16 +19,13 @@ module.exports = function(app) {
   var file  = require('./api/file/file.controller');
   var documents = require('./api/document/document.controller');
 
-  app.route('/api/:id')
-    .get(file.read);
-
   app.route('/api/document/:id').get(documents.update);
   app.route('/api/document/delete/:id').get(documents.destroy);
   app.route('/api/document/delete/:id').delete(documents.destroy);
   app.route('/api/document/create').post(documents.create);
   app.route('/api/document/remove/:id').delete(documents.remove);
   app.route('/api/file/destroyAll/:ids').delete(file.destroyAll);
-
+  app.route('/api/file/:id').get(file.read);
   // All other routes should redirect to the index.htm
   //
   app.route('/*')
