@@ -22,6 +22,7 @@ angular.module('thethurmansApp')
             .success(function(data){
 
               $scope.file = data;
+              console.log($scope.file);
             })
             .error(function(err){
               console.log(err);

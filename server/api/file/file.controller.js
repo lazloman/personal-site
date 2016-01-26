@@ -31,8 +31,11 @@ exports.read = function(req, res) {
 
   var id = new ObjectId(req.params.id);
   var collection = gfs.collection('fs');
+  var buffer;
 
   collection.findOne({_id: id}, function (err, obj) {
+
+    console.log(obj);
 
     if(!obj){
       return res.status(400).send({
@@ -40,24 +43,14 @@ exports.read = function(req, res) {
       });
     }
 
-    res.writeHead(200, {'Content-Type': obj.contentType});
-
     var readstream = gfs.createReadStream({
       _id: obj._id
     });
 
-    readstream.on('data', function(data) {
-      res.write(data);
-    });
-
-    readstream.on('end', function() {
-      res.end();
-    });
-
-    readstream.on('error', function (err) {
-      console.log('An error occurred!', err);
-      throw err;
-    });
+    res.setHeader('Content-disposition', 'attachment; filename=' + obj.filename);
+    res.setHeader('Content-type', obj.contentType);
+    res.setHeader('name', obj.filename);
+    readstream.pipe(res);
   });
 };
 
